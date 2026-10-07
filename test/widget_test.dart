@@ -1,30 +1,18 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_pacman/main.dart';
+import 'package:flutter_pacman/main.dart';  // importa tu main.dart
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Smoke test: la app se carga sin errores', (WidgetTester tester) async {
+    // Construye la app completa
+    await tester.pumpWidget(const PacmanApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verifica que elementos clave de tu juego aparezcan
+    expect(find.text('Score: 0'), findsOneWidget);           // El score inicial
+    expect(find.text('Usa las flechas del teclado para mover a Pac-Man'), findsOneWidget);
+    expect(find.text('🎮 Jugando...'), findsOneWidget);     // Estado inicial
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Opcional: verifica que no haya texto del contador viejo
+    expect(find.text('0'), findsNothing);  // ya no debería haber un '0' suelto
   });
 }
